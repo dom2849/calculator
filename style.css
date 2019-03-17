@@ -7,7 +7,7 @@
 body{
     font-size: 1.3rem;
     height: 100vh;
-    background: linear-gradient(to left, rgba(.0, .0, .0, .4), rgba(.0, .0, .0, .4)),
+    background: linear-gradient(to left, rgba(.0, .0, .0, .14), rgba(.0, .0, .0, .14)),
     url('images/desk.jpeg') no-repeat center center/cover
 }
 
@@ -29,18 +29,20 @@ body{
 }
 
 .calculator__button{
-    font: inherit;
     background: inherit;
     display: flex;
     justify-content: center;
+    align-items: center;
     cursor: pointer;
 }
 
 .calculator__button,
 .calculator__output{
+    font: inherit;
     outline: none;
     border: none;
     padding: 2rem;
+    color: #000;
 }
 
 .left-border{
@@ -67,7 +69,6 @@ body{
     background-color: #eaeaea;
 }
 
-.calculator__delete, 
 .calculator__clear{
     grid-column: 4 / span 2;
 }
