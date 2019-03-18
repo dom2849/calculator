@@ -1,0 +1,12 @@
+body{
+    background: none;
+}
+.calculator{
+    height: 100%;
+    width: 100%;
+}
+
+.calculator__button,
+.calculator__output{
+    padding: 1rem;
+}
