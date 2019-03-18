@@ -1,12 +1,12 @@
 const minus = '\u2014';
 export const errorMessage = 'Bad expression';
 
-export function evaluatePostfixExpression(postfixExpression, supportedOperators){
+export function evaluatePostfixExpression(postfixExpression, supportedOperators) {
     if (postfixExpression.length === 1) return errorMessage;
     let answerStack = [];
-    for (let i = 0; i < postfixExpression.length; i++){
+    for (let i = 0; i < postfixExpression.length; i++) {
         let currentTerm = postfixExpression[i];
-        if (supportedOperators.has(currentTerm)){
+        if (supportedOperators.has(currentTerm)) {
             if (answerStack.length < 2) return errorMessage;
             let firstOperand = answerStack.pop();
             let secondOperand = answerStack.pop();
@@ -18,19 +18,19 @@ export function evaluatePostfixExpression(postfixExpression, supportedOperators)
             answerStack.push(operationResult);
         }
 
-        else{
+        else {
             answerStack.push(currentTerm);
         }
     }
     return getFinalAnswer(answerStack);
 }
 
-function getFinalAnswer(answerStack){
+function getFinalAnswer(answerStack) {
     return (answerStack.length == 1) ? answerStack.pop() : errorMessage;
 }
 
-function performOperation(first, second, operation){
-    switch (operation){
+function performOperation(first, second, operation) {
+    switch (operation) {
         case '+':
             return first + second;
             break;

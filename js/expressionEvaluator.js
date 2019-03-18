@@ -11,11 +11,11 @@ const supportedOperators = new Map([['+', 1], ['\u2014', 1], ['*', 2], ['/', 2]]
 */
 let operatorDelimeters = /([\+\u2014\*\/])/
 
-export function calculate(infixExpression){
+export function calculate(infixExpression) {
     let terms = infixExpression.split(operatorDelimeters);
     let postfixResult = infixConverter.getPostfixExpression(terms, supportedOperators);
     let result = postfixEvaluator.evaluatePostfixExpression(postfixResult, supportedOperators);
-    return result.toFixed(3);
+    return (result === errorMessage) ? errorMessage : result.toFixed(2);
 }
 
 export let errorMessage = postfixEvaluator.errorMessage;

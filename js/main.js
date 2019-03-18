@@ -9,55 +9,65 @@ let calculateResult = document.getElementById("calculate-result");
 
 setEventListeners();
 
-function setEventListeners(){
+function setEventListeners() {
     calculator.addEventListener('click', appendToDisplay);
     clear.addEventListener('click', clearDisplay);
     deleteCharacter.addEventListener('click', deleteLastCharacter);
+    calculator.addEventListener('keydown', deleteLastCharacter);
+    calculator.addEventListener('keydown', calculateExpression);
     calculateResult.addEventListener('click', calculateExpression);
 }
 
-function appendToDisplay(e){
+
+function appendToDisplay(e) {
+    if (e.code === 'Enter') return;
     let buttonID = e.target.id;
-    if (contentIsNotAppendable(buttonID)){
+    if (contentIsNotAppendable(buttonID)) {
         return;
     }
     removeErrorMessageIfNecessary();
     display.value += getContentToAppend(e);
 }
 
-function removeErrorMessageIfNecessary(){
+function removeErrorMessageIfNecessary() {
     if (display.value === evaluator.errorMessage) {
         clearDisplay();
     }
 }
 
-function contentIsNotAppendable(text){
+function contentIsNotAppendable(text) {
     return (text.includes('calculate') || text.includes('clear') ||
-            text.includes('delete'));
+        text.includes('delete'));
 }
 
-function getContentToAppend(e){
-    if (e.target.id.includes('minus')){
+function getContentToAppend(e) {
+    if (e.target.id.includes('minus')) {
         return MINUS_CODE;
     }
 
     return e.target.textContent;
 }
 
-function clearDisplay(e){
+function clearDisplay(e) {
     display.value = '';
 }
 
-function deleteLastCharacter(){
-    let displayLength = display.value.length; 
-    if (displayLength === 0) return;
-    display.value = display.value.slice(0, displayLength - 1);
+function deleteLastCharacter(e) {
+    if (e.type === 'click' || e.code === 'Backspace') {
+        let displayLength = display.value.length;
+        if (displayLength === 0) return;
+        display.value = display.value.slice(0, displayLength - 1);
+    }
 }
 
-function calculateExpression(){
+function calculateExpression(e) {
     if (display.value.length === 0) return;
-    display.value = evaluator.calculate(display.value);
+
+    if (e.type === 'click' || e.code === 'Enter') {
+        display.value = evaluator.calculate(display.value);
+    }
 }
+
 
 
 

@@ -7,16 +7,16 @@ const supportedOperators = new Map([['+', 1], ['\u2014', 1], ['*', 2], ['/', 2]]
  Without the parenthesis, the operators would be lost.
 */
 
-export function getPostfixExpression(infixTerms, supportedOperators){
+export function getPostfixExpression(infixTerms, supportedOperators) {
     let postfixExpression = [];
     let operatorStack = [];
 
-    for (let i = 0; i<infixTerms.length; i++){
+    for (let i = 0; i < infixTerms.length; i++) {
         let currentTerm = infixTerms[i];
-        if (supportedOperators.has(currentTerm)){
+        if (supportedOperators.has(currentTerm)) {
             performNecessaryActionWithOperator(currentTerm, postfixExpression, operatorStack)
         }
-        else{
+        else {
             postfixExpression.push(currentTerm);
         }
     }
@@ -24,22 +24,22 @@ export function getPostfixExpression(infixTerms, supportedOperators){
     return postfixExpression;
 }
 
-function performNecessaryActionWithOperator(currentTerm, postfixExpression, operatorStack){
-    while (operatorStack.length !== 0 && 
-        precedenceOfTop(operatorStack) >= supportedOperators.get(currentTerm)){
-            let poppedTerm = operatorStack.pop();
-            postfixExpression.push(poppedTerm);
+function performNecessaryActionWithOperator(currentTerm, postfixExpression, operatorStack) {
+    while (operatorStack.length !== 0 &&
+        precedenceOfTop(operatorStack) >= supportedOperators.get(currentTerm)) {
+        let poppedTerm = operatorStack.pop();
+        postfixExpression.push(poppedTerm);
     }
     operatorStack.push(currentTerm);
 }
 
-function precedenceOfTop(operatorStack){
+function precedenceOfTop(operatorStack) {
     let top = operatorStack[operatorStack.length - 1];
     return supportedOperators.get(top);
 }
 
 function pushRemainingOperators(operatorStack, postfixExpression) {
-    while(operatorStack.length !== 0){
+    while (operatorStack.length !== 0) {
         let poppedTerm = operatorStack.pop();
         postfixExpression.push(poppedTerm)
     }
