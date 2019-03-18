@@ -1,7 +1,7 @@
 const minus = '\u2014';
-const errorMessage = 'Bad expression';
+export const errorMessage = 'Bad expression';
 
-export default function evaluatePostfixExpression(postfixExpression, supportedOperators){
+export function evaluatePostfixExpression(postfixExpression, supportedOperators){
     if (postfixExpression.length === 1) return errorMessage;
     let answerStack = [];
     for (let i = 0; i < postfixExpression.length; i++){

@@ -1,4 +1,4 @@
-import calculate from './calculator.js';
+import * as evaluator from './expressionEvaluator.js';
 
 const MINUS_CODE = '\u2014';
 let calculator = document.querySelector('.calculator');
@@ -21,7 +21,14 @@ function appendToDisplay(e){
     if (contentIsNotAppendable(buttonID)){
         return;
     }
+    removeErrorMessageIfNecessary();
     display.value += getContentToAppend(e);
+}
+
+function removeErrorMessageIfNecessary(){
+    if (display.value === evaluator.errorMessage) {
+        clearDisplay();
+    }
 }
 
 function contentIsNotAppendable(text){
@@ -49,7 +56,7 @@ function deleteLastCharacter(){
 
 function calculateExpression(){
     if (display.value.length === 0) return;
-    display.value = calculate(display.value);
+    display.value = evaluator.calculate(display.value);
 }
 
 

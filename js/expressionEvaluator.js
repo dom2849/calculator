@@ -1,5 +1,5 @@
 import * as infixConverter from './infixToPostfixConverter.js';
-import evaluatePostfixExpression from './postfixEvaluator.js';
+import * as postfixEvaluator from './postfixEvaluator.js';
 
 const supportedOperators = new Map([['+', 1], ['\u2014', 1], ['*', 2], ['/', 2]]);
 
@@ -11,8 +11,11 @@ const supportedOperators = new Map([['+', 1], ['\u2014', 1], ['*', 2], ['/', 2]]
 */
 let operatorDelimeters = /([\+\u2014\*\/])/
 
-export default function calculate(infixExpression){
+export function calculate(infixExpression){
     let terms = infixExpression.split(operatorDelimeters);
     let postfixResult = infixConverter.getPostfixExpression(terms, supportedOperators);
-    return evaluatePostfixExpression(postfixResult, supportedOperators);
+    let result = postfixEvaluator.evaluatePostfixExpression(postfixResult, supportedOperators);
+    return result.toFixed(3);
 }
+
+export let errorMessage = postfixEvaluator.errorMessage;
