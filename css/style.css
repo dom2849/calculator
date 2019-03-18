@@ -76,3 +76,9 @@ body{
 .calculator__clear{
     grid-column: 4 / span 2;
 }
+
+@media (hover:none), (hover:on-demand){
+    .calculator__button:hover{
+        background: none;
+    }
+}
