@@ -1,4 +1,5 @@
 import * as infixConverter from './infixToPostfixConverter.js';
+import * as postfixEvaluator from './postfixEvaluator.js';
 
 const MINUS_CODE = '\u2014';
 let calculator = document.querySelector('.calculator');

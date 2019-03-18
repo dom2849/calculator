@@ -8,9 +8,7 @@ const operators = new Map([['+', 1], ['\u2014', 1], ['*', 2], ['/', 2]]);
 */
 let operatorDelimeters = /([\+\u2014\*\/])/
 
-getPostfixExpression('10\u20145+2*2/4\u20148*2/2');
-
-function getPostfixExpression(infixExpression){
+export function getPostfixExpression(infixExpression){
     let terms = infixExpression.split(operatorDelimeters);
     let postfixExpression = [];
     let operatorStack = [];
@@ -25,7 +23,6 @@ function getPostfixExpression(infixExpression){
         }
     }
     pushRemainingOperators(operatorStack, postfixExpression);
-    console.log(postfixExpression);
 }
 
 function performNecessaryActionWithOperator(currentTerm, postfixExpression, operatorStack){
