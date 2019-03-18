@@ -1,6 +1,11 @@
 body{
     background: none;
 }
+
+.container{
+    min-width: 100%;;
+}
+
 .calculator{
     height: 100%;
     width: 100%;
@@ -10,4 +15,3 @@ body{
 .calculator__output{
     padding: 1rem;
 }
-
