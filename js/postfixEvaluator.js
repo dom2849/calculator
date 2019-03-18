@@ -1,12 +1,8 @@
 const minus = '\u2014';
 const errorMessage = 'Bad expression';
-const operators = new Map([['+', 1], ['\u2014', 1], ['*', 2], ['/', 2]]);
 
-let postfixExp = ['10', '4', '*', '2', '/', '5', '+', '1', minus];
-let res = evaluatePostfixExpression(postfixExp, operators);
-console.log(res);
-
-function evaluatePostfixExpression(postfixExpression, supportedOperators){
+export default function evaluatePostfixExpression(postfixExpression, supportedOperators){
+    if (postfixExpression.length === 1) return errorMessage;
     let answerStack = [];
     for (let i = 0; i < postfixExpression.length; i++){
         let currentTerm = postfixExpression[i];

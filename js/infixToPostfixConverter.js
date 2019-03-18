@@ -1,4 +1,4 @@
-const operators = new Map([['+', 1], ['\u2014', 1], ['*', 2], ['/', 2]]);
+const supportedOperators = new Map([['+', 1], ['\u2014', 1], ['*', 2], ['/', 2]]);
 
 /*
  The operator delimeters represent all the operators supported by the calculator 
@@ -6,16 +6,14 @@ const operators = new Map([['+', 1], ['\u2014', 1], ['*', 2], ['/', 2]]);
  so as to ensure they are included in the array after splitting the infix string.
  Without the parenthesis, the operators would be lost.
 */
-let operatorDelimeters = /([\+\u2014\*\/])/
 
-export function getPostfixExpression(infixExpression){
-    let terms = infixExpression.split(operatorDelimeters);
+export function getPostfixExpression(infixTerms, supportedOperators){
     let postfixExpression = [];
     let operatorStack = [];
 
-    for (let i = 0; i<terms.length; i++){
-        let currentTerm = terms[i];
-        if (operators.has(currentTerm)){
+    for (let i = 0; i<infixTerms.length; i++){
+        let currentTerm = infixTerms[i];
+        if (supportedOperators.has(currentTerm)){
             performNecessaryActionWithOperator(currentTerm, postfixExpression, operatorStack)
         }
         else{
@@ -23,11 +21,12 @@ export function getPostfixExpression(infixExpression){
         }
     }
     pushRemainingOperators(operatorStack, postfixExpression);
+    return postfixExpression;
 }
 
 function performNecessaryActionWithOperator(currentTerm, postfixExpression, operatorStack){
     while (operatorStack.length !== 0 && 
-        precedenceOfTop(operatorStack) >= operators.get(currentTerm)){
+        precedenceOfTop(operatorStack) >= supportedOperators.get(currentTerm)){
             let poppedTerm = operatorStack.pop();
             postfixExpression.push(poppedTerm);
     }
@@ -36,7 +35,7 @@ function performNecessaryActionWithOperator(currentTerm, postfixExpression, oper
 
 function precedenceOfTop(operatorStack){
     let top = operatorStack[operatorStack.length - 1];
-    return operators.get(top);
+    return supportedOperators.get(top);
 }
 
 function pushRemainingOperators(operatorStack, postfixExpression) {

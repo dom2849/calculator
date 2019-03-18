@@ -1,11 +1,11 @@
-import * as infixConverter from './infixToPostfixConverter.js';
-import * as postfixEvaluator from './postfixEvaluator.js';
+import calculate from './calculator.js';
 
 const MINUS_CODE = '\u2014';
 let calculator = document.querySelector('.calculator');
 let display = document.querySelector('.calculator__output');
 let clear = document.getElementById("clear");
 let deleteCharacter = document.getElementById("delete");
+let calculateResult = document.getElementById("calculate-result");
 
 setEventListeners();
 
@@ -13,6 +13,7 @@ function setEventListeners(){
     calculator.addEventListener('click', appendToDisplay);
     clear.addEventListener('click', clearDisplay);
     deleteCharacter.addEventListener('click', deleteLastCharacter);
+    calculateResult.addEventListener('click', calculateExpression);
 }
 
 function appendToDisplay(e){
@@ -34,7 +35,6 @@ function getContentToAppend(e){
     }
 
     return e.target.textContent;
-
 }
 
 function clearDisplay(e){
@@ -43,8 +43,13 @@ function clearDisplay(e){
 
 function deleteLastCharacter(){
     let displayLength = display.value.length; 
-    if (displayLength == 0) return;
+    if (displayLength === 0) return;
     display.value = display.value.slice(0, displayLength - 1);
+}
+
+function calculateExpression(){
+    if (display.value.length === 0) return;
+    display.value = calculate(display.value);
 }
 
 
